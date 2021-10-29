@@ -1,18 +1,20 @@
 import { useContext } from "react";
-import { Time } from "../App"
+import { TimeContext } from "../App"
 
 
 const Timer = () => {
-    const time = useContext(Time)
+    const time = useContext(TimeContext)
     const minutes = Math.floor(time / 60)
     const seconds = time - minutes * 60
+    const formatTime = value => value < 10 ? `0${value}` : value
+
     return (
         <div>
-            <span>{minutes}:</span>
-            <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
-            <button>Start</button>
-            <button>Reset</button>
-            <button>Pause</button>
+            <span>{formatTime(minutes)}: </span>
+            <span>{formatTime(seconds)}</span>
+            <button type="button">Start</button>
+            <button type="button">Reset</button>
+            <button type="button">Pause</button>
         </div>
     )
 }

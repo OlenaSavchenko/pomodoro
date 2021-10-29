@@ -1,7 +1,7 @@
 import tasks from '../mock.json'
 
 const History = props => {
-    return null
+    return <div>History</div>
 }
 
 

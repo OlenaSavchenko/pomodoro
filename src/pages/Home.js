@@ -1,6 +1,10 @@
 import Timer from "../components/Timer";
+import TasksForm from "../components/TasksForm";
 
 const Home = () => {
-    return <Timer />
+    return (<>
+        <Timer />
+        <TasksForm />
+    </>)
 }
 export default Home

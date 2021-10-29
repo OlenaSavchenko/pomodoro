@@ -1,11 +1,12 @@
 import React, { useEffect, useState, createContext } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
 import Home from "./pages/Home";
 import Overview from "./pages/Overview";
 import History from "./pages/History";
 import Nav from "./components/Header";
 
-export const Time = createContext()
+
+export const TimeContext = createContext()
 
 
 const App = () => {
@@ -23,11 +24,14 @@ const App = () => {
 
       <Nav />
       <Switch>
-        <Time.Provider value={time}>
+        <Route exact path='/'>
+          <Redirect to="/home" />
+        </Route>
+        <TimeContext.Provider value={time}>
           <Route exact path="/home" component={Home} />
           <Route exact path="/history" component={History} />
-          <Route path="/overview" component={Overview} />
-        </Time.Provider>
+          <Route exact path="/overview" component={Overview} />
+        </TimeContext.Provider>
       </Switch>
     </>
   );
