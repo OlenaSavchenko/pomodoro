@@ -1,7 +1,7 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import TasksContext from "../services/TasksContext";
 import TimeContext from "../services/TimeContext";
-import { Button, TextField, NativeSelect } from "@mui/material";
+import { Button, TextField, Select, MenuItem } from "@mui/material";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import Title from "./Title";
 
@@ -11,7 +11,7 @@ const TasksForm = () => {
     const { setActiveTask } = useContext(TasksContext)
     const { isRunning } = useContext(TimeContext)
     const ref = useRef()
-    let i = 0
+    let i = 1
 
     useEffect(() => {
         if (localStorage.getItem('tasks')) {
@@ -49,14 +49,18 @@ const TasksForm = () => {
                 <Button type="submit" variant="contained" title="Save task"> <AddTaskIcon /></Button>
             </form>
             <Title text="Select task &#128071;" />
-            <NativeSelect
+            <TextField
+                defaultValue={""}
+                select
                 variant='outlined'
                 onChange={handleSelectChange}
                 disabled={isRunning}
                 title="Select task"
-                style={{ marginBottom: "20px", width: "30%" }}>
-                {tasks.map(task => <option value={task} key={i++}>{task}</option>)}
-            </NativeSelect>
+                helperText="Once you choose task, you can start timer."
+                style={{ marginBottom: "20px", width: "30%" }}
+            >
+                {tasks.map(task => <MenuItem value={task} key={i++}>{task}</MenuItem>)}
+            </TextField>
 
 
         </>)
