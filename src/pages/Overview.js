@@ -1,23 +1,19 @@
-import React, { useContext } from "react";
-import { TasksContext } from "../App";
+import { Box } from "@mui/material";
+import Title from "../components/Title";
+import OverviewStats from "../components/OverviewStats";
+import TasksContext from "../services/TasksContext";
+import { useContext } from 'react';
 
 const Overview = () => {
     const { history } = useContext(TasksContext)
-    const result = history.reduce((arr, { name }) => {
-        if (arr.some(item => item.name === name)) {
-            const index = arr.findIndex(item => item.name === name)
-            arr[index].count += 1
-            return arr
-        }
-        arr.push({ name, count: 1 })
-        return arr
-    }, [])
-
-    let i = 0
     return (
-        <ul>
-            {result.map(({ name, count }) => <li key={i++}><p>{name}</p><p>{count}</p></li>)}
-        </ul>
+        <Box textAlign='center'>
+            {history.length
+                ? <Title text="Some more statistic about your Pomodoro success &#128521;" />
+                : <Title text="We have not statistic data yet &#129488;" />}
+
+            <OverviewStats />
+        </Box>
     )
 }
 

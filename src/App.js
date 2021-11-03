@@ -1,14 +1,20 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router";
 import Home from "./pages/Home";
 import Overview from "./pages/Overview";
 import History from "./pages/History";
-import Nav from "./components/Header";
+import Header from "./components/Header/Header";
+import Settings from "./pages/Settings";
+import TimeContext from "./services/TimeContext";
+import TasksContext from "./services/TasksContext";
+import { theme } from "./services/theme";
+import { ThemeProvider } from '@mui/material/styles';
+import { Container } from '@mui/material';
 
-export const TimeContext = createContext()
-export const TasksContext = createContext()
 
 let interval
+
+
 
 const App = () => {
   const [time, setTime] = useState(25 * 60)
@@ -16,10 +22,11 @@ const App = () => {
   const [history, setHistory] = useState([])
   const [activeTask, setActiveTask] = useState()
 
+
   useEffect(() => {
     if (time < 0) {
       reset()
-      setHistory([...history, { name: activeTask, date: Date.now() }])
+      setHistory([...history, { name: activeTask, date: new Date() }])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])
@@ -44,19 +51,24 @@ const App = () => {
 
   return (
     <>
-      <Nav />
-      <Switch>
-        <Route exact path='/'>
-          <Redirect to="/home" />
-        </Route>
-        <TimeContext.Provider value={{ time, start, stop, reset, isRunning }}>
-          <TasksContext.Provider value={{ setActiveTask, activeTask, history }}>
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/history" component={History} />
-            <Route exact path="/overview" component={Overview} />
-          </TasksContext.Provider>
-        </TimeContext.Provider>
-      </Switch>
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="md">
+          <Header />
+          <Switch>
+            <Route exact path='/'>
+              <Redirect to="/home" />
+            </Route>
+            <TimeContext.Provider value={{ time, start, stop, reset, isRunning, setTime }}>
+              <TasksContext.Provider value={{ setActiveTask, activeTask, history }}>
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/history" component={History} />
+                <Route exact path="/overview" component={Overview} />
+                <Route exact path="/settings" component={Settings} />
+              </TasksContext.Provider>
+            </TimeContext.Provider>
+          </Switch>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }

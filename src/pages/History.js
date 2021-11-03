@@ -1,12 +1,19 @@
-import { TasksContext } from "../App";
+import TasksContext from "../services/TasksContext";
 import { useContext } from 'react';
+import { Box } from "@mui/material";
+import Title from "../components/Title";
+import HistoryStats from "../components/HistoryStats";
+
 
 const History = () => {
     const { history } = useContext(TasksContext)
     return (
-        <ul>
-            {history.map(({ name, date }) => <li key={date}><p>{name}</p><p>{date}</p></li>)}
-        </ul>
+        <Box textAlign='center'>
+            {history.length ?
+                <Title text={`Creat job! See all your pomodoro tasks (${history.length})`} />
+                : <Title text="You haven`t comleted tasks. Try Pomodoro at Homepage &#128579;" />}
+            <HistoryStats />
+        </Box>
 
     )
 }
