@@ -1,7 +1,14 @@
-import tasks from '../mock.json'
+import { TasksContext } from "../App";
+import { useContext } from 'react';
 
-const History = props => {
-    return <div>History</div>
+const History = () => {
+    const { history } = useContext(TasksContext)
+    return (
+        <ul>
+            {history.map(({ name, date }) => <li key={date}><p>{name}</p><p>{date}</p></li>)}
+        </ul>
+
+    )
 }
 
 

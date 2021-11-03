@@ -1,22 +1,38 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useState } from "react";
+import { useContext } from "react";
+import { TasksContext, TimeContext } from "../App"
 
-console.log(Field);
 const TasksForm = () => {
-    const handleFormSubmit = () => {
+    const [task, setTask] = useState()
+    const [tasks, setTasks] = useState([])
 
+    const { setActiveTask } = useContext(TasksContext)
+    const { isRunning } = useContext(TimeContext)
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        setTasks([...tasks, task])
     }
+
+    const handleInputChange = (e) => {
+        setTask(e.target.value)
+    }
+
+    const handleChange = (e) => {
+        setActiveTask(e.target.value)
+    }
+    const options = tasks.map((task, index) => <option value={task} key={index}>{task}</option>)
+
     return (
         <>
             <h2>Add task</h2>
-            <Formik initialValues={{ task: "" }} onSubmit={handleFormSubmit}>
-                {({ isSubmitting }) => {
-                    <Form>
-                        <Field type="text" name="task" placeholder="enter task" component="input" />
-                        <ErrorMessage component="div" name="task" />
-                        <button type="submit" disabled={isSubmitting}>Add</button>
-                    </Form>
-                }}
-            </Formik >
+            <form onSubmit={handleFormSubmit}>
+                <input type="text" onChange={handleInputChange} />
+                <button type="submit"> Add</button>
+                <select onChange={handleChange} disabled={isRunning}>
+                    {options}
+                </select>
+            </form>
 
         </>)
 }
