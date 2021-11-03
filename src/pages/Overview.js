@@ -9,7 +9,7 @@ const Overview = () => {
     return (
         <Box textAlign='center'>
             {history.length
-                ? <Title text="Some more statistic about your Pomodoro success &#128521;" />
+                ? <Title text="Some more statistic about your Pomodoro Tracker success &#128521;" />
                 : <Title text="We have not statistic data yet &#129488;" />}
 
             <OverviewStats />

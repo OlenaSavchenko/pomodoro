@@ -11,7 +11,7 @@ const History = () => {
         <Box textAlign='center'>
             {history.length ?
                 <Title text={`Creat job! See all your pomodoro tasks (${history.length})`} />
-                : <Title text="You haven`t comleted tasks. Try Pomodoro at Homepage &#128579;" />}
+                : <Title text="You haven`t completed tasks. Try Pomodoro Tracker at Homepage &#128579;" />}
             <HistoryStats />
         </Box>
 
