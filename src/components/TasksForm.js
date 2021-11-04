@@ -1,7 +1,7 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import TasksContext from "../services/TasksContext";
 import TimeContext from "../services/TimeContext";
-import { Button, TextField, MenuItem } from "@mui/material";
+import { Button, TextField, MenuItem, Container } from "@mui/material";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import Title from "./Title";
 
@@ -42,9 +42,9 @@ const TasksForm = () => {
 
 
     return (
-        <>
+        <Container maxWidth="sm">
             <Title text="Add task &#128071;" />
-            <form onSubmit={handleFormSubmit} style={{ display: "grid", maxWidth: "30%", margin: "0 auto 20px" }}>
+            <form onSubmit={handleFormSubmit} style={{ display: "grid", margin: "0 auto 20px", maxWidth: "50%" }}>
                 <TextField type="text" onChange={handleInputChange} inputRef={ref} label="My great task is..." variant="outlined" />
                 <Button type="submit" variant="contained" title="Save task"> <AddTaskIcon /></Button>
             </form>
@@ -57,13 +57,11 @@ const TasksForm = () => {
                 disabled={isRunning}
                 title="Select task"
                 helperText="Once you choose task, you can start timer."
-                style={{ marginBottom: "20px", width: "30%" }}
+                style={{ marginBottom: "20px" }}
             >
                 {tasks.map(task => <MenuItem value={task} key={i++}>{task}</MenuItem>)}
             </TextField>
-
-
-        </>)
+        </Container>)
 }
 
 export default TasksForm
