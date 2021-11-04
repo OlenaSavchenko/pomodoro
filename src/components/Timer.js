@@ -10,7 +10,6 @@ const Timer = () => {
     const minutes = Math.floor(time / 60)
     const seconds = time - minutes * 60
 
-
     return (
         <Container maxWidth="sm">
             <Typography variant="h1" component="h2" color="primary" style={{ textAlign: "center" }}>

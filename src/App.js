@@ -11,10 +11,7 @@ import { theme } from "./services/theme";
 import { ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material';
 
-
 let interval
-
-
 
 const App = () => {
   const [time, setTime] = useState(25 * 60)
@@ -30,6 +27,20 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])
+
+  useEffect(() => {
+    if (localStorage.getItem('history')) {
+      const historyLS = JSON.parse(localStorage.getItem('history'))
+      const history = historyLS.map(({ name, date }) => ({
+        name, date: new Date(date)
+      }))
+      setHistory(history)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('history', JSON.stringify(history))
+  }, [history])
 
   const start = () => {
     if (!activeTask) return
